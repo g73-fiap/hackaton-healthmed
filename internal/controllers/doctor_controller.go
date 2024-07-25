@@ -70,6 +70,22 @@ func (d DoctorController) UpdateDoctor(c *gin.Context) {
 	c.Status(http.StatusNoContent)
 }
 
+func (d DoctorController) DeleteDoctor(c *gin.Context) {
+	id := c.Param("id")
+	if id == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": errors.New("id is required")})
+		return
+	}
+
+	err := d.doctorUseCase.DeleteDoctor(id)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.Status(http.StatusNoContent)
+}
+
 func extractQueryParams(c *gin.Context) (*usecases.GetDoctorsFilter, error) {
 	coordinatesParam := c.Query("coordinates")
 	maxDistanceParam := c.Query("maxDistance")

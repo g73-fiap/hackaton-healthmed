@@ -9,6 +9,7 @@ type DoctorUseCase interface {
 	GetAllDoctors(filter *GetDoctorsFilter) ([]entities.Doctor, error)
 	CreateDoctor(doctor entities.Doctor) error
 	UpdateDoctor(id string, doctor entities.Doctor) error
+	DeleteDoctor(id string) error
 }
 
 type doctorUserCase struct {
@@ -41,4 +42,8 @@ func (u *doctorUserCase) CreateDoctor(doctor entities.Doctor) error {
 func (u *doctorUserCase) UpdateDoctor(id string, doctor entities.Doctor) error {
 	_, err := u.doctorRepository.UpdateDoctor(id, doctor)
 	return err
+}
+
+func (u *doctorUserCase) DeleteDoctor(id string) error {
+	return u.doctorRepository.DeleteDoctor(id)
 }
