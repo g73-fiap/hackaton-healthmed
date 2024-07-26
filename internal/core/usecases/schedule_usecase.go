@@ -2,6 +2,7 @@ package usecases
 
 import (
 	"g73-fiap/hackaton-healthmed/internal/core/entities"
+	"g73-fiap/hackaton-healthmed/internal/infra/drivers"
 	"g73-fiap/hackaton-healthmed/internal/infra/gateways"
 )
 
@@ -12,11 +13,15 @@ type ScheduleUseCase interface {
 
 type scheduleUseCase struct {
 	scheduleRepository gateways.ScheduleRepository
+	scheduleNotifier   gateways.SchedulerNotifier
+	googleAPI          drivers.GoogleAPI
 }
 
-func NewScheduleUseCase(scheduleRepository gateways.ScheduleRepository) ScheduleUseCase {
+func NewScheduleUseCase(scheduleRepository gateways.ScheduleRepository, scheduleNotifier gateways.SchedulerNotifier, googleAPI drivers.GoogleAPI) ScheduleUseCase {
 	return &scheduleUseCase{
 		scheduleRepository: scheduleRepository,
+		scheduleNotifier:   scheduleNotifier,
+		googleAPI:          googleAPI,
 	}
 }
 
@@ -25,5 +30,22 @@ func (u *scheduleUseCase) GetDoctorSchedules(doctorLicenseNumber string) ([]enti
 }
 
 func (u *scheduleUseCase) UpdateSchedule(schedule entities.Schedule) error {
-	return u.scheduleRepository.UpdateSchedule(schedule)
+	meeting, err := u.googleAPI.CreateMeeting()
+	if err != nil {
+		return err
+	}
+
+	schedule.MeetingLink = meeting
+
+	err = u.scheduleRepository.UpdateSchedule(schedule)
+	if err != nil {
+		return err
+	}
+
+	err = u.scheduleNotifier.NotifyScheduler(schedule)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

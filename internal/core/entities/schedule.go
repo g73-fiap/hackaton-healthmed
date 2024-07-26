@@ -3,12 +3,13 @@ package entities
 import "time"
 
 type Schedule struct {
-	DoctorLicenseNumber string
-	StartTime           time.Time
-	EndTime             time.Time
-	ReservedBy          string
-	ReservedAt          time.Time
-	CanceledAt          time.Time
+	DoctorLicenseNumber string    `json:"doctorLicenseNumber"`
+	MeetingLink         string    `json:"meetingLink"`
+	StartTime           time.Time `json:"startTime"`
+	EndTime             time.Time `json:"endTime"`
+	ReservedBy          string    `json:"reservedBy"`
+	ReservedAt          time.Time `json:"reservedAt"`
+	CanceledAt          time.Time `json:"canceledAt"`
 }
 
 func (s Schedule) GetHashKey() string {

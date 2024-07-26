@@ -13,6 +13,12 @@ type AppointmentController struct {
 	appointmentUseCase usecases.AppointmentUseCase
 }
 
+func NewAppointmentController(appointmentUseCase usecases.AppointmentUseCase) AppointmentController {
+	return AppointmentController{
+		appointmentUseCase: appointmentUseCase,
+	}
+}
+
 func (a AppointmentController) GetClientAppointments(c *gin.Context) {
 	clientEmail := c.Query("clientEmail")
 	if clientEmail == "" {
@@ -30,7 +36,7 @@ func (a AppointmentController) GetClientAppointments(c *gin.Context) {
 }
 
 func (a AppointmentController) CreateAppointment(c *gin.Context) {
-	var appointment entities.Appoitment
+	var appointment entities.Appointment
 	err := c.ShouldBindJSON(&appointment)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -53,7 +59,7 @@ func (a AppointmentController) ConfirmAppointment(c *gin.Context) {
 		return
 	}
 
-	var appointment entities.Appoitment
+	var appointment entities.Appointment
 	err := c.ShouldBindJSON(&appointment)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -76,7 +82,7 @@ func (a AppointmentController) CancelAppointment(c *gin.Context) {
 		return
 	}
 
-	var appointment entities.Appoitment
+	var appointment entities.Appointment
 	err := c.ShouldBindJSON(&appointment)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

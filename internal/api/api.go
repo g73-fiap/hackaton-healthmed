@@ -7,10 +7,10 @@ import (
 )
 
 type APIParams struct {
-	doctorController       controllers.DoctorController
-	schedulerController    controllers.SchedulerController
-	clientController       controllers.ClientController
-	appointmentsController controllers.AppointmentController
+	DoctorController       controllers.DoctorController
+	SchedulerController    controllers.SchedulerController
+	ClientController       controllers.ClientController
+	AppointmentsController controllers.AppointmentController
 }
 
 func NewApi(params APIParams) *gin.Engine {
@@ -27,31 +27,31 @@ func NewApi(params APIParams) *gin.Engine {
 }
 
 func createDoctorsAPIRoutes(router *gin.RouterGroup, params APIParams) {
-	router.GET("/doctors", params.doctorController.GetDoctors)
-	router.POST("/doctors", params.doctorController.CreateDoctor)
-	router.PUT("/doctors/:id", params.doctorController.UpdateDoctor)
-	router.DELETE("/doctors/:id", params.doctorController.DeleteDoctor)
+	router.GET("/doctors", params.DoctorController.GetDoctors)
+	router.POST("/doctors", params.DoctorController.CreateDoctor)
+	router.PUT("/doctors/:id", params.DoctorController.UpdateDoctor)
+	router.DELETE("/doctors/:id", params.DoctorController.DeleteDoctor)
 }
 
 func createAppointmentsAPIRoutes(router *gin.RouterGroup, params APIParams) {
-	router.GET("/appointments", params.appointmentsController.GetClientAppointments)
-	router.POST("/appointments", params.appointmentsController.CreateAppointment)
-	router.PUT("/appointments/:id/cancel", params.appointmentsController.ConfirmAppointment)
-	router.PUT("/appointments/:id/confirm", params.appointmentsController.CancelAppointment)
+	router.GET("/appointments", params.AppointmentsController.GetClientAppointments)
+	router.POST("/appointments", params.AppointmentsController.CreateAppointment)
+	router.PUT("/appointments/:id/cancel", params.AppointmentsController.ConfirmAppointment)
+	router.PUT("/appointments/:id/confirm", params.AppointmentsController.CancelAppointment)
 }
 
 func createScheduleAPIRoutes(router *gin.RouterGroup, params APIParams) {
-	router.GET("/schedule", params.schedulerController.GetDoctorSchedules)
-	router.PUT("/schedule", params.schedulerController.UpdateSchedule)
+	router.GET("/schedule", params.SchedulerController.GetDoctorSchedules)
+	router.PUT("/schedule", params.SchedulerController.UpdateSchedule)
 }
 
 func createClientsAPIRoutes(router *gin.RouterGroup, params APIParams) {
-	router.GET("/clients/:id", params.clientController.GetClient)
-	router.POST("/clients", params.clientController.CreateClient)
-	router.PUT("/clients/:id", params.clientController.UpdateClient)
-	router.DELETE("/clients/:id", params.clientController.DeleteClient)
-	router.PUT("/clients/:id/medicalReport", params.clientController.SaveMedicalReport)
-	router.DELETE("/clients/:id/medicalReport", params.clientController.DeleteMedicalReport)
-	router.GET("/clients/:id/medicalReport/:fileName", params.clientController.GetMedicalReport)
-	router.PUT("/clients/:id/medicalReport/:fileName/share", params.clientController.ShareMedicalReport)
+	router.GET("/clients/:id", params.ClientController.GetClient)
+	router.POST("/clients", params.ClientController.CreateClient)
+	router.PUT("/clients/:id", params.ClientController.UpdateClient)
+	router.DELETE("/clients/:id", params.ClientController.DeleteClient)
+	router.PUT("/clients/:id/medicalReport", params.ClientController.SaveMedicalReport)
+	router.DELETE("/clients/:id/medicalReport", params.ClientController.DeleteMedicalReport)
+	router.GET("/clients/:id/medicalReport/:fileName", params.ClientController.GetMedicalReport)
+	router.PUT("/clients/:id/medicalReport/:fileName/share", params.ClientController.ShareMedicalReport)
 }

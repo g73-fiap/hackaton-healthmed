@@ -15,6 +15,12 @@ type DoctorController struct {
 	doctorUseCase usecases.DoctorUseCase
 }
 
+func NewDoctorController(doctorUseCase usecases.DoctorUseCase) DoctorController {
+	return DoctorController{
+		doctorUseCase: doctorUseCase,
+	}
+}
+
 func (d DoctorController) GetDoctors(c *gin.Context) {
 	filter, err := extractQueryParams(c)
 	if err != nil {

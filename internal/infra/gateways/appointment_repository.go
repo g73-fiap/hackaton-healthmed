@@ -6,30 +6,30 @@ import (
 )
 
 type AppointmentRepository interface {
-	FindAppointmentsByClient(clientEmail string) ([]entities.Appoitment, error)
-	InsertAppointment(appointment entities.Appoitment) error
-	UpdateAppointment(appointment entities.Appoitment) (entities.Appoitment, error)
+	FindAppointmentsByClient(clientEmail string) ([]entities.Appointment, error)
+	InsertAppointment(appointment entities.Appointment) error
+	UpdateAppointment(appointment entities.Appointment) (entities.Appointment, error)
 }
 
 type appointmentRepository struct {
-	dynamodbDriver drivers.DynamoDBDriver[entities.Appoitment]
+	dynamodbDriver drivers.DynamoDBDriver[entities.Appointment]
 }
 
-func NewAppointmentRepository(dynamodbDriver drivers.DynamoDBDriver[entities.Appoitment]) AppointmentRepository {
+func NewAppointmentRepository(dynamodbDriver drivers.DynamoDBDriver[entities.Appointment]) AppointmentRepository {
 	return &appointmentRepository{
 		dynamodbDriver: dynamodbDriver,
 	}
 }
 
-func (r *appointmentRepository) FindAppointmentsByClient(clientEmail string) ([]entities.Appoitment, error) {
+func (r *appointmentRepository) FindAppointmentsByClient(clientEmail string) ([]entities.Appointment, error) {
 	return r.dynamodbDriver.FindMany(clientEmail)
 }
 
-func (r *appointmentRepository) InsertAppointment(appointment entities.Appoitment) error {
+func (r *appointmentRepository) InsertAppointment(appointment entities.Appointment) error {
 	_ = r.dynamodbDriver.InsertOne(appointment)
 	return nil
 }
 
-func (r *appointmentRepository) UpdateAppointment(appointment entities.Appoitment) (entities.Appoitment, error) {
+func (r *appointmentRepository) UpdateAppointment(appointment entities.Appointment) (entities.Appointment, error) {
 	return r.dynamodbDriver.UpdateOne(appointment)
 }

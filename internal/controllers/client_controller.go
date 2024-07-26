@@ -13,6 +13,12 @@ type ClientController struct {
 	clientUseCase usecases.ClientUseCase
 }
 
+func NewClientController(clientUseCase usecases.ClientUseCase) ClientController {
+	return ClientController{
+		clientUseCase: clientUseCase,
+	}
+}
+
 func (cc ClientController) GetClient(c *gin.Context) {
 	id := c.Param("id")
 	if id == "" {

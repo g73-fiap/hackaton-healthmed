@@ -13,6 +13,12 @@ type SchedulerController struct {
 	schedulerUseCase usecases.ScheduleUseCase
 }
 
+func NewSchedulerController(schedulerUseCase usecases.ScheduleUseCase) SchedulerController {
+	return SchedulerController{
+		schedulerUseCase: schedulerUseCase,
+	}
+}
+
 func (s SchedulerController) GetDoctorSchedules(c *gin.Context) {
 	doctorLicenseNumber := c.Query("doctorLicenseNumber")
 	if doctorLicenseNumber == "" {
