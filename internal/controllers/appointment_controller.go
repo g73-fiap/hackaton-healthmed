@@ -9,18 +9,18 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type ClientController struct {
-	clientUseCase usecases.ClientUseCase
+type AppointmentController struct {
+	appointmentUseCase usecases.AppointmentUseCase
 }
 
-func (cc ClientController) GetClient(c *gin.Context) {
-	id := c.Param("id")
-	if id == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": errors.New("id is required")})
+func (a AppointmentController) GetClientAppointments(c *gin.Context) {
+	clientEmail := c.Query("clientEmail")
+	if clientEmail == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": errors.New("clientEmail is required")})
 		return
 	}
 
-	client, err := cc.clientUseCase.GetClient(id)
+	client, err := a.appointmentUseCase.FindClientAppointments(clientEmail)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -29,38 +29,15 @@ func (cc ClientController) GetClient(c *gin.Context) {
 	c.JSON(http.StatusOK, client)
 }
 
-func (cc ClientController) CreateClient(c *gin.Context) {
-	var client entities.Client
-	err := c.ShouldBindJSON(&client)
+func (a AppointmentController) CreateAppointment(c *gin.Context) {
+	var appointment entities.Appoitment
+	err := c.ShouldBindJSON(&appointment)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	err = cc.clientUseCase.Createclient(client)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	c.Status(http.StatusNoContent)
-}
-
-func (cc ClientController) UpdateClient(c *gin.Context) {
-	id := c.Param("id")
-	if id == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": errors.New("id is required")})
-		return
-	}
-
-	var client entities.Client
-	err := c.ShouldBindJSON(&client)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	err = cc.clientUseCase.UpdateClient(client)
+	err = a.appointmentUseCase.CreateAppointment(appointment)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -69,14 +46,44 @@ func (cc ClientController) UpdateClient(c *gin.Context) {
 	c.Status(http.StatusNoContent)
 }
 
-func (cc ClientController) DeleteClient(c *gin.Context) {
+func (a AppointmentController) ConfirmAppointment(c *gin.Context) {
 	id := c.Param("id")
 	if id == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": errors.New("id is required")})
 		return
 	}
 
-	err := cc.clientUseCase.DeleteClient(id)
+	var appointment entities.Appoitment
+	err := c.ShouldBindJSON(&appointment)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	err = a.appointmentUseCase.ConfirmAppointment(appointment)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.Status(http.StatusNoContent)
+}
+
+func (a AppointmentController) CancelAppointment(c *gin.Context) {
+	id := c.Param("id")
+	if id == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": errors.New("id is required")})
+		return
+	}
+
+	var appointment entities.Appoitment
+	err := c.ShouldBindJSON(&appointment)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	err = a.appointmentUseCase.CancelAppointment(appointment)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return

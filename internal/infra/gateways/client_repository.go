@@ -8,7 +8,7 @@ import (
 type ClientRepository interface {
 	FindClientByID(id string) (entities.Client, error)
 	InsertClient(client entities.Client) error
-	UpdateClient(id string, client entities.Client) (entities.Client, error)
+	UpdateClient(client entities.Client) (entities.Client, error)
 	DeleteClient(id string) error
 }
 
@@ -31,8 +31,8 @@ func (r *clientRepository) InsertClient(client entities.Client) error {
 	return nil
 }
 
-func (r *clientRepository) UpdateClient(id string, client entities.Client) (entities.Client, error) {
-	return r.dynamodbDriver.UpdateOne(id, client)
+func (r *clientRepository) UpdateClient(client entities.Client) (entities.Client, error) {
+	return r.dynamodbDriver.UpdateOne(client)
 }
 
 func (r *clientRepository) DeleteClient(id string) error {

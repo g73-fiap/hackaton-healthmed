@@ -9,7 +9,7 @@ type DynamoDBDriver[T DynamoDBEntity] interface {
 	FindOne(partitionKey, sortKey string) (T, error)
 	FindMany(partitionKey string) ([]T, error)
 	InsertOne(entity T) T
-	UpdateOne(id string, updatedEntity T) (T, error)
+	UpdateOne(entity T) (T, error)
 	DeleteOne(id string) error
 }
 
@@ -64,16 +64,16 @@ func (d *dynamodbDriver[T]) InsertOne(entity T) T {
 	return entity
 }
 
-func (d *dynamodbDriver[T]) UpdateOne(id string, updatedEntity T) (T, error) {
+func (d *dynamodbDriver[T]) UpdateOne(updatedEntity T) (T, error) {
 	d.mu.Lock()
 	defer d.mu.Unlock()
 
-	_, exists := d.items[id]
+	_, exists := d.items[updatedEntity.GetHashKey()+"-"+updatedEntity.GetSortKey()]
 	if !exists {
 		return updatedEntity, errors.New("entity not found")
 	}
 
-	d.items[updatedEntity.GetHashKey()] = updatedEntity
+	d.items[updatedEntity.GetHashKey()+"-"+updatedEntity.GetSortKey()] = updatedEntity
 	return updatedEntity, nil
 }
 

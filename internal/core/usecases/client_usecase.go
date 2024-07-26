@@ -8,7 +8,7 @@ import (
 type ClientUseCase interface {
 	GetClient(email string) (entities.Client, error)
 	Createclient(client entities.Client) error
-	UpdateClient(id string, client entities.Client) error
+	UpdateClient(client entities.Client) error
 	DeleteClient(id string) error
 }
 
@@ -30,8 +30,8 @@ func (u *clientUserCase) Createclient(client entities.Client) error {
 	return u.clientRepository.InsertClient(client)
 }
 
-func (u *clientUserCase) UpdateClient(id string, client entities.Client) error {
-	_, err := u.clientRepository.UpdateClient(id, client)
+func (u *clientUserCase) UpdateClient(client entities.Client) error {
+	_, err := u.clientRepository.UpdateClient(client)
 	return err
 }
 

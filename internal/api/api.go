@@ -7,25 +7,10 @@ import (
 )
 
 type APIParams struct {
-	DoctorsAPIParams
-	AppointmentsAPIParams
-	SchedulerAPIParams
-	ClientsAPIParams
-}
-
-type DoctorsAPIParams struct {
-	doctorController controllers.DoctorController
-}
-
-type AppointmentsAPIParams struct {
-}
-
-type SchedulerAPIParams struct {
-	schedulerController controllers.SchedulerController
-}
-
-type ClientsAPIParams struct {
-	clientController controllers.ClientController
+	doctorController       controllers.DoctorController
+	schedulerController    controllers.SchedulerController
+	clientController       controllers.ClientController
+	appointmentsController controllers.AppointmentController
 }
 
 func NewApi(params APIParams) *gin.Engine {
@@ -34,7 +19,7 @@ func NewApi(params APIParams) *gin.Engine {
 	{
 		createDoctorsAPIRoutes(v1, params)
 		createClientsAPIRoutes(v1, params)
-		createAppointmentsAPIRoutes(v1)
+		createAppointmentsAPIRoutes(v1, params)
 		createScheduleAPIRoutes(v1, params)
 	}
 
@@ -48,12 +33,11 @@ func createDoctorsAPIRoutes(router *gin.RouterGroup, params APIParams) {
 	router.DELETE("/doctors/:id", params.doctorController.DeleteDoctor)
 }
 
-func createAppointmentsAPIRoutes(router *gin.RouterGroup) {
-	router.GET("/appointments")
-	router.POST("/appointments")
-	router.PUT("/appointments/:id")
-	router.PUT("/appointments/:id/cancel")
-	router.PUT("/appointments/:id/confirm")
+func createAppointmentsAPIRoutes(router *gin.RouterGroup, params APIParams) {
+	router.GET("/appointments", params.appointmentsController.GetClientAppointments)
+	router.POST("/appointments", params.appointmentsController.CreateAppointment)
+	router.PUT("/appointments/:id/cancel", params.appointmentsController.ConfirmAppointment)
+	router.PUT("/appointments/:id/confirm", params.appointmentsController.CancelAppointment)
 }
 
 func createScheduleAPIRoutes(router *gin.RouterGroup, params APIParams) {
