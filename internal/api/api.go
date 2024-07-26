@@ -50,6 +50,8 @@ func createClientsAPIRoutes(router *gin.RouterGroup, params APIParams) {
 	router.POST("/clients", params.clientController.CreateClient)
 	router.PUT("/clients/:id", params.clientController.UpdateClient)
 	router.DELETE("/clients/:id", params.clientController.DeleteClient)
-	router.PUT("/clients/:id/medicalReport")
-	router.DELETE("/clients/:id/medicalReport")
+	router.PUT("/clients/:id/medicalReport", params.clientController.SaveMedicalReport)
+	router.DELETE("/clients/:id/medicalReport", params.clientController.DeleteMedicalReport)
+	router.GET("/clients/:id/medicalReport/:fileName", params.clientController.GetMedicalReport)
+	router.PUT("/clients/:id/medicalReport/:fileName/share", params.clientController.ShareMedicalReport)
 }

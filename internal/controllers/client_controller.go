@@ -84,3 +84,111 @@ func (cc ClientController) DeleteClient(c *gin.Context) {
 
 	c.Status(http.StatusNoContent)
 }
+
+func (cc ClientController) SaveMedicalReport(c *gin.Context) {
+	id := c.Param("id")
+	if id == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": errors.New("id is required")})
+		return
+	}
+
+	file, err := c.FormFile("file")
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	err = cc.clientUseCase.SaveMedicalReport(id, file.Filename, file)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.Status(http.StatusNoContent)
+}
+
+func (cc ClientController) DeleteMedicalReport(c *gin.Context) {
+	id := c.Param("id")
+	if id == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": errors.New("id is required")})
+		return
+	}
+
+	fileName := c.Param("fileName")
+	if id == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": errors.New("fileName is required")})
+		return
+	}
+
+	err := cc.clientUseCase.RemoveMedicalReport(id, fileName)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.Status(http.StatusNoContent)
+}
+
+func (cc ClientController) GetMedicalReport(c *gin.Context) {
+	id := c.Param("id")
+	if id == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": errors.New("id is required")})
+		return
+	}
+
+	fileName := c.Param("fileName")
+	if id == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": errors.New("fileName is required")})
+		return
+	}
+
+	var body struct {
+		requester string
+	}
+
+	err := c.ShouldBindJSON(&body)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	location, err := cc.clientUseCase.GetMedicalReport(id, fileName, body.requester)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"fileLocation": location})
+}
+
+func (cc ClientController) ShareMedicalReport(c *gin.Context) {
+	id := c.Param("id")
+	if id == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": errors.New("id is required")})
+		return
+	}
+
+	fileName := c.Param("fileName")
+	if id == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": errors.New("fileName is required")})
+		return
+	}
+
+	var body struct {
+		requester string
+	}
+
+	err := c.ShouldBindJSON(&body)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	err = cc.clientUseCase.ShareMedicalReport(id, fileName, body.requester)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.Status(http.StatusNoContent)
+}
