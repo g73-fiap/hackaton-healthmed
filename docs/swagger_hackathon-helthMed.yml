@@ -1,0 +1,636 @@
+openapi: 3.0.0
+info:
+  title: Hackathon - HelthMed
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+tags:
+  - name: Doctors
+    description: Operações sobre os Médicos
+  - name: Appointments
+    description: Operações sobre as Consultas
+  - name: Scheduler
+    description: Operações sobre os Agendamentos
+  - name: Clients
+    description: Operações sobre os Clientes e Prontuários 
+  
+paths:
+  /v1/doctors:
+    get:
+      tags:
+        - Doctors
+      summary: Buscar Médicos
+      responses:
+        '200':
+          description: Successful response
+    post:
+      tags:
+        - Doctors
+      summary: Criar Médicos
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                specialization:
+                  type: string
+                email:
+                  type: string
+                phoneNumber:
+                  type: string
+                address:
+                  type: string
+                coordinates:
+                  type: array
+                  items:
+                    type: integer
+                dateOfBirth:
+                  type: string
+                  format: date-time
+                gender:
+                  type: string
+                licenseNumber:
+                  type: string
+                yearsOfExperience:
+                  type: integer
+                available:
+                  type: boolean
+            example:
+              id: '01'
+              firstName: Hackharson
+              lastName: da Silva
+              specialization: Medico da TI
+              email: hackharson.s@gmail.com
+              phoneNumber: '99999999999'
+              address: rua dos hacks
+              coordinates:
+                - 1
+                - 2
+              dateOfBirth: 2000-01-01T09:10:SSZ
+              gender: Male
+              licenseNumber: '12345'
+              yearsOfExperience: 3
+              available: true
+      responses:
+        '200':
+          description: Successful response
+  /v1/doctors/{id}:
+    put:
+      tags:
+        - Doctors
+      summary: Alterar Médicos
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                specialization:
+                  type: string
+                email:
+                  type: string
+                phoneNumber:
+                  type: string
+                address:
+                  type: string
+                coordinates:
+                  type: array
+                  items:
+                    type: integer
+                dateOfBirth:
+                  type: string
+                  format: date-time
+                gender:
+                  type: string
+                licenseNumber:
+                  type: string
+                yearsOfExperience:
+                  type: integer
+                available:
+                  type: boolean
+            example:
+              id: '01'
+              firstName: Hackharson
+              lastName: da Silva
+              specialization: Medico da TI
+              email: hackharson.s@gmail.com
+              phoneNumber: '99999999999'
+              address: rua dos hacks
+              coordinates:
+                - 1
+                - 2
+              dateOfBirth: 2000-01-01T09:10:SSZ
+              gender: Male
+              licenseNumber: '12345'
+              yearsOfExperience: 4
+              available: true
+      responses:
+        '200':
+          description: Successful response
+    delete:
+      tags:
+        - Doctors
+      summary: Deletar Médicos
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+  /v1/appointments:
+    get:
+      tags:
+        - Appointments
+      summary: Buscar Consulta
+      responses:
+        '200':
+          description: Successful response
+    post:
+      tags:
+        - Appointments
+      summary: Criar Consulta
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                clientEmail:
+                  type: string
+                doctorLicenseNumber:
+                  type: string
+                confirmed:
+                  type: boolean
+                canceled:
+                  type: boolean
+                schedule:
+                  type: object
+                  properties:
+                    doctorLicenseNumber:
+                      type: string
+                    meetingLink:
+                      type: string
+                    startTime:
+                      type: string
+                      format: date-time
+                    endTime:
+                      type: string
+                      format: date-time
+                    reservedBy:
+                      type: string
+                    reservedAt:
+                      type: string
+                      format: date-time
+                    canceledAt:
+                      type: string
+                      format: date-time
+            example:
+              clientEmail: client@example.com
+              doctorLicenseNumber: DOC12345
+              confirmed: true
+              canceled: false
+              schedule:
+                doctorLicenseNumber: DOC12345
+                meetingLink: https://telemed.example.com/meet/123456
+                startTime: '2024-07-26T09:00:00Z'
+                endTime: '2024-07-26T10:00:00Z'
+                reservedBy: client@example.com
+                reservedAt: '2024-07-25T15:30:00Z'
+                canceledAt: '2024-07-25T16:00:00Z'
+      responses:
+        '200':
+          description: Successful response
+  /v1/appointments/{id}/cancel:
+    put:
+      tags:
+        - Appointments
+      summary: Cancelar Consulta
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                clientEmail:
+                  type: string
+                doctorLicenseNumber:
+                  type: string
+                confirmed:
+                  type: boolean
+                canceled:
+                  type: boolean
+                schedule:
+                  type: object
+                  properties:
+                    doctorLicenseNumber:
+                      type: string
+                    meetingLink:
+                      type: string
+                    startTime:
+                      type: string
+                      format: date-time
+                    endTime:
+                      type: string
+                      format: date-time
+                    reservedBy:
+                      type: string
+                    reservedAt:
+                      type: string
+                      format: date-time
+                    canceledAt:
+                      type: string
+                      format: date-time
+            example:
+              clientEmail: client@example.com
+              doctorLicenseNumber: DOC12345
+              confirmed: true
+              canceled: false
+              schedule:
+                doctorLicenseNumber: DOC12345
+                meetingLink: https://telemed.example.com/meet/123456
+                startTime: '2024-07-26T09:00:00Z'
+                endTime: '2024-07-26T10:00:00Z'
+                reservedBy: client@example.com
+                reservedAt: '2024-07-25T15:30:00Z'
+                canceledAt: '2024-07-25T16:00:00Z'
+      responses:
+        '200':
+          description: Successful response
+  /v1/appointments/{id}/confirm:
+    put:
+      tags:
+        - Appointments
+      summary: Confirmar Consulta
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                clientEmail:
+                  type: string
+                doctorLicenseNumber:
+                  type: string
+                confirmed:
+                  type: boolean
+                canceled:
+                  type: boolean
+                schedule:
+                  type: object
+                  properties:
+                    doctorLicenseNumber:
+                      type: string
+                    meetingLink:
+                      type: string
+                    startTime:
+                      type: string
+                      format: date-time
+                    endTime:
+                      type: string
+                      format: date-time
+                    reservedBy:
+                      type: string
+                    reservedAt:
+                      type: string
+                      format: date-time
+                    canceledAt:
+                      type: string
+                      format: date-time
+            example:
+              clientEmail: client@example.com
+              doctorLicenseNumber: DOC12345
+              confirmed: true
+              canceled: false
+              schedule:
+                doctorLicenseNumber: DOC12345
+                meetingLink: https://telemed.example.com/meet/123456
+                startTime: '2024-07-26T09:00:00Z'
+                endTime: '2024-07-26T10:00:00Z'
+                reservedBy: client@example.com
+                reservedAt: '2024-07-25T15:30:00Z'
+                canceledAt: '2024-07-25T16:00:00Z'
+      responses:
+        '200':
+          description: Successful response
+  /v1/schedule:
+    get:
+      tags:
+        - Scheduler
+      summary: Buscar Agendamento
+      responses:
+        '200':
+          description: Successful response
+    put:
+      tags:
+        - Scheduler
+      summary: Alterar Agendamento
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                doctorLicenseNumber:
+                  type: string
+                meetingLink:
+                  type: string
+                startTime:
+                  type: string
+                  format: date-time
+                endTime:
+                  type: string
+                  format: date-time
+                reservedBy:
+                  type: string
+                reservedAt:
+                  type: string
+                  format: date-time
+                canceledAt:
+                  type: string
+                  format: date-time
+            example:
+              doctorLicenseNumber: DOC12345
+              meetingLink: https://telemed.example.com/meet/123456
+              startTime: '2024-07-26T09:00:00Z'
+              endTime: '2024-07-26T10:00:00Z'
+              reservedBy: client@example.com
+              reservedAt: '2024-07-25T15:30:00Z'
+              canceledAt: '2024-07-25T16:00:00Z'
+      responses:
+        '200':
+          description: Successful response
+  /v1/clients/{id}:
+    get:
+      tags:
+        - Clients
+      summary: Buscar Cliente
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+    put:
+      tags:
+        - Clients
+      summary: Alterar Cliente
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+                phoneNumber:
+                  type: string
+                address:
+                  type: string
+                dateOfBirth:
+                  type: string
+                gender:
+                  type: string
+                medicalReports:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      client:
+                        type: string
+                      sharedWith:
+                        type: array
+                        items:
+                          type: string
+                      fileName:
+                        type: string
+                      fileLocation:
+                        type: string
+            example:
+              firstName: John
+              lastName: Doe
+              email: john.doe@example.com
+              phoneNumber: '+1234567890'
+              address: 123 Main St, Springfield, IL
+              dateOfBirth: '1980-01-01'
+              gender: Male
+              medicalReports:
+                - client: John Doe
+                  sharedWith:
+                    - dr.smith@example.com
+                    - nurse.jane@example.com
+                  fileName: blood_test_report.pdf
+                  fileLocation: /reports/2024/01/blood_test_report.pdf
+                - client: John Doe
+                  sharedWith:
+                    - dr.adams@example.com
+                  fileName: xray_results.pdf
+                  fileLocation: /reports/2024/02/xray_results.pdf
+      responses:
+        '200':
+          description: Successful response
+    delete:
+      tags:
+        - Clients
+      summary: Deletar Cliente
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+  /v1/clients:
+    post:
+      tags:
+        - Clients
+      summary: Criar Cliente
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+                phoneNumber:
+                  type: string
+                address:
+                  type: string
+                dateOfBirth:
+                  type: string
+                gender:
+                  type: string
+                medicalReports:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      client:
+                        type: string
+                      sharedWith:
+                        type: array
+                        items:
+                          type: string
+                      fileName:
+                        type: string
+                      fileLocation:
+                        type: string
+            example:
+              firstName: John
+              lastName: Doe
+              email: john.doe@example.com
+              phoneNumber: '+1234567890'
+              address: 123 Main St, Springfield, IL
+              dateOfBirth: '1980-01-01'
+              gender: Male
+              medicalReports:
+                - client: John Doe
+                  sharedWith:
+                    - dr.smith@example.com
+                    - nurse.jane@example.com
+                  fileName: blood_test_report.pdf
+                  fileLocation: /reports/2024/01/blood_test_report.pdf
+                - client: John Doe
+                  sharedWith:
+                    - dr.adams@example.com
+                  fileName: xray_results.pdf
+                  fileLocation: /reports/2024/02/xray_results.pdf
+      responses:
+        '200':
+          description: Successful response
+  /v1/clients/{id}/medicalReport:
+    put:
+      tags:
+        - Clients
+      summary: Alterar Prontuário
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Successful response
+    delete:
+      tags:
+        - Clients
+      summary: Deletar Prontuário
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+  /v1/clients/{id}/medicalReport/{fileName}:
+    get:
+      tags:
+        - Clients
+      summary: Buscar Prontuário
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: fileName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+  /v1/clients/{id}/medicalReport/{fileName}/share:
+    post:
+      tags:
+        - Clients
+      summary: Enviar Prontuário
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: fileName
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Successful response

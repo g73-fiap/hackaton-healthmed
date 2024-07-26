@@ -1,0 +1,567 @@
+{
+	"info": {
+		"_postman_id": "08617421-5a16-42a7-a021-42f13e55e0c7",
+		"name": "Hackathon - HelthMed",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Doctors",
+			"item": [
+				{
+					"name": "Buscar Médicos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/doctors",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"doctors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Médicos",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"01\",\r\n  \"firstName\": \"Hackharson\",\r\n  \"lastName\": \"da Silva\",\r\n  \"specialization\": \"Medico da TI\",\r\n  \"email\": \"hackharson.s@gmail.com\",\r\n  \"phoneNumber\": \"99999999999\",\r\n  \"address\": \"rua dos hacks\",\r\n  \"coordinates\": [1, 2],\r\n  \"dateOfBirth\": \"2000-01-01T09:10:SSZ\",\r\n  \"gender\": \"Male\",\r\n  \"licenseNumber\": \"12345\",\r\n  \"yearsOfExperience\": 3,\r\n  \"available\": true\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/doctors",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"doctors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Alterar Médicos",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"01\",\r\n  \"firstName\": \"Hackharson\",\r\n  \"lastName\": \"da Silva\",\r\n  \"specialization\": \"Medico da TI\",\r\n  \"email\": \"hackharson.s@gmail.com\",\r\n  \"phoneNumber\": \"99999999999\",\r\n  \"address\": \"rua dos hacks\",\r\n  \"coordinates\": [1, 2],\r\n  \"dateOfBirth\": \"2000-01-01T09:10:SSZ\",\r\n  \"gender\": \"Male\",\r\n  \"licenseNumber\": \"12345\",\r\n  \"yearsOfExperience\": 4,\r\n  \"available\": true\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/doctors/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"doctors",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar Médicos",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/doctors/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"doctors",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Appointments",
+			"item": [
+				{
+					"name": "Buscar Consulta",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/appointments",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"appointments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Consulta",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"clientEmail\": \"client@example.com\",\r\n  \"doctorLicenseNumber\": \"DOC12345\",\r\n  \"confirmed\": true,\r\n  \"canceled\": false,\r\n  \"schedule\": {\r\n    \"doctorLicenseNumber\": \"DOC12345\",\r\n    \"meetingLink\": \"https://telemed.example.com/meet/123456\",\r\n    \"startTime\": \"2024-07-26T09:00:00Z\",\r\n    \"endTime\": \"2024-07-26T10:00:00Z\",\r\n    \"reservedBy\": \"client@example.com\",\r\n    \"reservedAt\": \"2024-07-25T15:30:00Z\",\r\n    \"canceledAt\": \"2024-07-25T16:00:00Z\"\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/appointments",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"appointments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancelar Consulta",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"clientEmail\": \"client@example.com\",\r\n  \"doctorLicenseNumber\": \"DOC12345\",\r\n  \"confirmed\": true,\r\n  \"canceled\": false,\r\n  \"schedule\": {\r\n    \"doctorLicenseNumber\": \"DOC12345\",\r\n    \"meetingLink\": \"https://telemed.example.com/meet/123456\",\r\n    \"startTime\": \"2024-07-26T09:00:00Z\",\r\n    \"endTime\": \"2024-07-26T10:00:00Z\",\r\n    \"reservedBy\": \"client@example.com\",\r\n    \"reservedAt\": \"2024-07-25T15:30:00Z\",\r\n    \"canceledAt\": \"2024-07-25T16:00:00Z\"\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/appointments/:id/cancel",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"appointments",
+								":id",
+								"cancel"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Confirmar Consulta",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"clientEmail\": \"client@example.com\",\r\n  \"doctorLicenseNumber\": \"DOC12345\",\r\n  \"confirmed\": true,\r\n  \"canceled\": false,\r\n  \"schedule\": {\r\n    \"doctorLicenseNumber\": \"DOC12345\",\r\n    \"meetingLink\": \"https://telemed.example.com/meet/123456\",\r\n    \"startTime\": \"2024-07-26T09:00:00Z\",\r\n    \"endTime\": \"2024-07-26T10:00:00Z\",\r\n    \"reservedBy\": \"client@example.com\",\r\n    \"reservedAt\": \"2024-07-25T15:30:00Z\",\r\n    \"canceledAt\": \"2024-07-25T16:00:00Z\"\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/appointments/:id/confirm",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"appointments",
+								":id",
+								"confirm"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Scheduler",
+			"item": [
+				{
+					"name": "Buscar Agendamento",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/schedule",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"schedule"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Alterar Agendamento",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"doctorLicenseNumber\": \"DOC12345\",\r\n  \"meetingLink\": \"https://telemed.example.com/meet/123456\",\r\n  \"startTime\": \"2024-07-26T09:00:00Z\",\r\n  \"endTime\": \"2024-07-26T10:00:00Z\",\r\n  \"reservedBy\": \"client@example.com\",\r\n  \"reservedAt\": \"2024-07-25T15:30:00Z\",\r\n  \"canceledAt\": \"2024-07-25T16:00:00Z\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/schedule",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"schedule"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Clients",
+			"item": [
+				{
+					"name": "ClientsUser",
+					"item": [
+						{
+							"name": "Buscar Cliente",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/v1/clients/:id",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"clients",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Criar Cliente",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"firstName\": \"John\",\r\n  \"lastName\": \"Doe\",\r\n  \"email\": \"john.doe@example.com\",\r\n  \"phoneNumber\": \"+1234567890\",\r\n  \"address\": \"123 Main St, Springfield, IL\",\r\n  \"dateOfBirth\": \"1980-01-01\",\r\n  \"gender\": \"Male\",\r\n  \"medicalReports\": [\r\n    {\r\n      \"client\": \"John Doe\",\r\n      \"sharedWith\": [\r\n        \"dr.smith@example.com\",\r\n        \"nurse.jane@example.com\"\r\n      ],\r\n      \"fileName\": \"blood_test_report.pdf\",\r\n      \"fileLocation\": \"/reports/2024/01/blood_test_report.pdf\"\r\n    },\r\n    {\r\n      \"client\": \"John Doe\",\r\n      \"sharedWith\": [\r\n        \"dr.adams@example.com\"\r\n      ],\r\n      \"fileName\": \"xray_results.pdf\",\r\n      \"fileLocation\": \"/reports/2024/02/xray_results.pdf\"\r\n    }\r\n  ]\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v1/clients",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"clients"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Alterar Cliente",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"firstName\": \"John\",\r\n  \"lastName\": \"Doe\",\r\n  \"email\": \"john.doe@example.com\",\r\n  \"phoneNumber\": \"+1234567890\",\r\n  \"address\": \"123 Main St, Springfield, IL\",\r\n  \"dateOfBirth\": \"1980-01-01\",\r\n  \"gender\": \"Male\",\r\n  \"medicalReports\": [\r\n    {\r\n      \"client\": \"John Doe\",\r\n      \"sharedWith\": [\r\n        \"dr.smith@example.com\",\r\n        \"nurse.jane@example.com\"\r\n      ],\r\n      \"fileName\": \"blood_test_report.pdf\",\r\n      \"fileLocation\": \"/reports/2024/01/blood_test_report.pdf\"\r\n    },\r\n    {\r\n      \"client\": \"John Doe\",\r\n      \"sharedWith\": [\r\n        \"dr.adams@example.com\"\r\n      ],\r\n      \"fileName\": \"xray_results.pdf\",\r\n      \"fileLocation\": \"/reports/2024/02/xray_results.pdf\"\r\n    }\r\n  ]\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v1/clients/:id",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"clients",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletar Cliente",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/v1/clients/:id",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"clients",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "MedicalReport",
+					"item": [
+						{
+							"name": "Alterar Prontuário",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "",
+											"type": "file",
+											"src": []
+										}
+									]
+								},
+								"url": {
+									"raw": "localhost:8080/v1/clients/:id/medicalReport",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"clients",
+										":id",
+										"medicalReport"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletar Prontuário",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/v1/clients/:id/medicalReport",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"clients",
+										":id",
+										"medicalReport"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buscar Prontuário",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/v1/clients/:id/medicalReport/:fileName",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"clients",
+										":id",
+										"medicalReport",
+										":fileName"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": null
+										},
+										{
+											"key": "fileName",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Enviar Prontuário",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "",
+											"type": "file",
+											"src": []
+										}
+									]
+								},
+								"url": {
+									"raw": "localhost:8080/v1/clients/:id/medicalReport/:fileName/share",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"clients",
+										":id",
+										"medicalReport",
+										":fileName",
+										"share"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": null
+										},
+										{
+											"key": "fileName",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
