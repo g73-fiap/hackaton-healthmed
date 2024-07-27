@@ -6,8 +6,8 @@
 A HealthMed está desenvolvendo um sistema robusto, escalável e seguro para o gerenciamento eficiente de agendamentos e consultas online. Ele integra funcionalidades como autenticação segura de médicos e pacientes, agendamento e gerenciamento de consultas, realização de teleconsultas via integração com a API do Google, e um prontuário eletrônico robusto para armazenamento e compartilhamento de registros médicos. Este documento descreve a arquitetura detalhada do sistema, dividida em vários componentes e serviços.
 
 ## Arquitetura
-É expressamente recomendado a visualização da arquitetura no Draw.io, além de uma maior nitidez para a visualização dos componentes da arquitetura, também é possível visualizar o fluxo dos dados. O link se encontra na primeira página deste documento.  
-Link: https://drive.google.com/file/d/1SjWMS8WzQ69KsnlqjmbpEx1lQzzLqOW_/view?usp=sharing  
+É expressamente recomendado a visualização da arquitetura no Draw.io, além de uma maior nitidez para a visualização dos componentes da arquitetura, também é possível visualizar o fluxo dos dados.  
+Link: [Arquitetura-draw.io](https://drive.google.com/file/d/1SjWMS8WzQ69KsnlqjmbpEx1lQzzLqOW_/view?usp=sharing)   
 A arquitetura do sistema HealthMed foi planejada de maneira que haja três diferentes modos de acesso ou entrada de dados.  O primeiro modo de acesso é através de um ERP, no qual será acessado por um administrador e será responsável por todo cadastro pessoal e gerenciamento financeiro da HealthMed. O segundo modo de acesso será através do nosso portal para clientes, onde eles poderão fazer seu cadastro através de uma rota pública, as credenciais de acesso,  autenticar no nosso sistema e realizar o agendamento de consultas. O último modo de acesso será uma plataforma exclusiva para os médicos, onde eles poderão fazer o acompanhamento de suas consultas, além da confirmação dos agendamentos.
 
 ![Arquitetura](./docs/Arquitetura_Hackathon.png)
