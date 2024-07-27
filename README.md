@@ -72,6 +72,11 @@ Pré-requisitos ⚙️
   go mod tidy
 ```
 
+4. Rodar a aplicação
+```bash
+  go run cmg/main.go
+``` 
+
 
 ## Estrutura Geral do projeto
 
